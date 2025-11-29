@@ -1,6 +1,4 @@
-import { Routes, Route } from "react-router-dom";
-
-import LoginNhanVien from "./pages/LoginNhanVien";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
 import ReturnBook from "./pages/ReturnBook";
@@ -13,13 +11,16 @@ import ReaderList from "./pages/ReaderList";
 import Category from "./pages/Category";
 import Location from "./pages/Location";
 import Statistics from "./pages/Statistics";
+
 function App() {
   return (
     <Routes>
 
       {/* --- PUBLIC ROUTES (không có sidebar) --- */}
       <Route path="/auth" element={<Auth />} />
-      <Route path="/login" element={<LoginNhanVien />} />
+
+      {/* Khi vào trang chủ "/", tự động chuyển sang /admin/dashboard */}
+      <Route path="/" element={<Navigate to="/admin/dashboard" />} />
 
       {/* --- ADMIN ROUTES (có sidebar + header) --- */}
       <Route
@@ -75,6 +76,7 @@ function App() {
           </AdminLayout>
         }
       />
+
       <Route
         path="/admin/readers"
         element={
@@ -83,7 +85,8 @@ function App() {
           </AdminLayout>
         }
       />
-       <Route
+
+      <Route
         path="/admin/types"
         element={
           <AdminLayout>
@@ -91,15 +94,17 @@ function App() {
           </AdminLayout>
         }
       />
+
       <Route
         path="/admin/positions"
         element={
           <AdminLayout>
-            < Location/>
+            <Location />
           </AdminLayout>
         }
       />
-       <Route
+
+      <Route
         path="/admin/static"
         element={
           <AdminLayout>
