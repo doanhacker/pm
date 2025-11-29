@@ -1,0 +1,36 @@
+.content-area {
+  margin-left: 260px;
+  padding: 30px;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+.page-header-custom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-add {
+  padding: 8px 18px;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.category-card {
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.table th {
+  background: #eef3ff !important;
+  font-weight: bold;
+}
+
+.table-hover tbody tr:hover {
+  background: #f8f9fc !important;
+}

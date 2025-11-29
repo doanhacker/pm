@@ -1,0 +1,79 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.login-box {
+  width: 450px;
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.login-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.login-tabs div {
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.login-tabs .active {
+  border-bottom: 2px solid red;
+  color: red;
+}
+
+.login-label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 14px;
+  cursor: pointer;
+  color: #888;
+}
+
+.login-footer {
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.login-footer a {
+  color: red;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  background: #c3c3c3;
+  border: none;
+  border-radius: 6px;
+  font-size: 17px;
+  cursor: pointer;
+}

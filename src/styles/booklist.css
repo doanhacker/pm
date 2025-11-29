@@ -1,0 +1,111 @@
+.booklist-container {
+  padding: 20px 40px;
+}
+
+.booklist-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.booklist-header h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.title-icon {
+  font-size: 30px;
+  color: #222;
+}
+
+.btn-add {
+  margin-left: auto;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+
+.btn-add:hover {
+  background: #0056d2;
+}
+
+/* TABLE */
+.table-wrapper {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead tr {
+  background: #f0f2f5;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+tbody tr:hover {
+  background: #f9f9f9;
+}
+
+/* ACTION BUTTONS */
+.action-cell {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: #ffc107;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #222;
+  font-size: 14px;
+}
+
+.btn-delete {
+  background: #dc3545;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+}
+
+.btn-edit:hover {
+  background: #e0a800;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+.search-box {
+  margin: 15px 0;
+}
+
+.search-box input {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}

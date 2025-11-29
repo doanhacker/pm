@@ -1,0 +1,59 @@
+/* ============================
+   SIDEBAR (NEW BRIGHT VERSION)
+=============================== */
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 3px 0 10px rgba(0,0,0,0.05);
+  padding-top: 25px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: "Inter", sans-serif;
+}
+
+/* LOGO */
+.sidebar-logo {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 35px;
+  font-weight: 700;
+  color: #4C6EF5;
+}
+
+/* MENU LIST */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li {
+  padding: 14px 25px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #374151;
+  transition: 0.25s ease;
+  border-left: 4px solid transparent;
+}
+
+/* Hover hiệu ứng */
+.sidebar-menu li:hover {
+  background: #f3f6ff;
+  border-left: 4px solid #4C6EF5;
+  color: #4C6EF5;
+}
+
+/* Trang đang active */
+.sidebar-menu li.active {
+  background: #eef2ff;
+  border-left: 4px solid #4C6EF5;
+  color: #4C6EF5;
+  font-weight: 600;
+}
+

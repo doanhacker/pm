@@ -1,0 +1,118 @@
+/* ====== CONTAINER ======= */
+.renew-container {
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+}
+
+/* ====== HEADER ====== */
+.renew-header {
+  background: #007bff;
+  color: white;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.renew-header h4 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.renew-close {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* ===== BODY ===== */
+.renew-body {
+  padding: 20px;
+  background: #f8faff;
+}
+
+.renew-item {
+  padding: 16px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #e3e6f0;
+}
+
+.renew-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.renew-price {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.renew-field label {
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.renew-date {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* ===== TOTAL BOX ===== */
+.renew-total-box {
+  background: #eef5ff;
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 17px;
+}
+
+.renew-total {
+  color: #d9534f;
+  font-size: 20px;
+}
+
+/* ===== FOOTER ===== */
+.renew-footer {
+  padding: 14px 22px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #f3f4f7;
+}
+
+.btn-cancel {
+  background: #d6d6d6;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-confirm {
+  background: #007bff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-weight: 500;
+}
+
+.btn-cancel:hover {
+  background: #bcbcbc;
+}
+
+.btn-confirm:hover {
+  background: #0066d6;
+}
