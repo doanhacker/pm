@@ -6,6 +6,8 @@ export default function BorrowModal({ slip, onClose, onSave }) {
         { id: 1, name: "Nguyễn Văn A", email: "a@gmail.com" },
         { id: 2, name: "Trần Thị B", email: "b@gmail.com" },
         { id: 3, name: "Lê Văn C", email: "c@gmail.com" },
+        { id: 4, name: "Đào Trọng Đoàn", email: "trung@gmail.com" },
+        { id: 5, name: "Nguyễn Thành Trung", email: "doan@gmail.com" },
     ];
 
     const books = [
@@ -243,6 +245,8 @@ export default function BorrowModal({ slip, onClose, onSave }) {
                 <div className="modal-footer">
                     <button className="btn grey" onClick={onClose}>Hủy</button>
                     <button className="btn primary" onClick={handleSave}>Lưu phiếu</button>
+                    <button className="btn primary" onClick={handleSave}>In hóa đơn</button>
+                    
                 </div>
 
             </div>

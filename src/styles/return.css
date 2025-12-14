@@ -124,3 +124,44 @@
   color: #d00;
   font-weight: 700;
 }
+.receipt-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.receipt-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.receipt-header {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.receipt-table th,
+.receipt-table td {
+  border: 1px solid #e5e7eb;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.receipt-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.receipt-footer .total {
+  color: #dc2626;
+}
