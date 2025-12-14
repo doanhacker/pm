@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import "../styles/renew.css";   // nhớ import CSS mới
+import "../styles/renew.css";
 
-export default function RenewModal({ borrow, books, onSave }) {
+export default function RenewModal({ borrow, books, onSave, onClose }) {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -35,18 +35,18 @@ export default function RenewModal({ borrow, books, onSave }) {
 
     const saveRenew = () => {
         onSave({ ...borrow, items });
-        document.getElementById("closeRenewModal")?.click();
+        onClose?.();
     };
 
     return (
-        <div className="modal fade" id="renewModal" tabIndex="-1">
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content renew-container">
+        <div className="renew-overlay">
+            <div className="renew-modal">
+                <div className="renew-container">
 
                     {/* HEADER */}
                     <div className="renew-header">
                         <h4>Gia hạn mượn sách</h4>
-                        <button className="renew-close" data-bs-dismiss="modal">✕</button>
+                        <button className="renew-close" onClick={() => { setItems(borrow.items); onClose?.(); }}>✕</button>
                     </div>
 
                     {/* BODY */}
@@ -89,11 +89,10 @@ export default function RenewModal({ borrow, books, onSave }) {
 
                         {/* ❌ Hủy gia hạn — không lưu, trả về trạng thái ban đầu */}
                         <button
-                            id="closeRenewModal"
                             className="btn-cancel"
-                            data-bs-dismiss="modal"
                             onClick={() => {
-                                setItems(borrow.items); // 👉 trả lại items cũ, không lưu thay đổi
+                                setItems(borrow.items); // trả lại items cũ
+                                onClose?.();
                             }}
                         >
                             Hủy gia hạn

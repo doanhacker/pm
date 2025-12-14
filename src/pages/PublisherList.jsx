@@ -29,6 +29,22 @@ export default function PublisherList() {
       email: "giaoduc@gmail.com",
       phone: "0974556688",
     },
+
+     {
+      id: 4,
+      name: "NXB Hà Nội",
+      address: "Hà Nội",
+      email: "HaNoi@gmail.com",
+      phone: "0974556689",
+    },
+
+     {
+      id: 3,
+      name: "NXB Tiểu Trẻ",
+      address: "TP Huế",
+      email: "TieuTrec@gmail.com",
+      phone: "0974558899",
+    },
   ];
 
   return (

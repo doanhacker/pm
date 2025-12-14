@@ -1,16 +1,19 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "../styles/Location.css";
+import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
 
 const Location = () => {
-  // Dữ liệu mẫu
   const [locations, setLocations] = useState([
     { id: 1, name: "Kệ A1", description: "Khu vực sách văn học", capacity: 120 },
     { id: 2, name: "Kệ B2", description: "Sách khoa học và nghiên cứu", capacity: 90 },
     { id: 3, name: "Kệ C3", description: "Sách thiếu nhi", capacity: 150 },
+    { id: 4, name: "Kệ D4", description: "Sách toán học", capacity: 150 },
+    { id: 5, name: "Kệ D4", description: "Sách học thuật", capacity: 150 },
+    { id: 6, name: "Kệ E8", description: "Sách lịch sử chiến tranh", capacity: 150 }, 
   ]);
 
+  const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("add");
   const [currentLocation, setCurrentLocation] = useState({
     id: "",
@@ -19,19 +22,24 @@ const Location = () => {
     capacity: "",
   });
 
-  // Mở modal thêm
   const handleAdd = () => {
     setModalType("add");
     setCurrentLocation({ id: "", name: "", description: "", capacity: "" });
+    setModalOpen(true);
   };
 
-  // Mở modal sửa
   const handleEdit = (loc) => {
     setModalType("edit");
     setCurrentLocation(loc);
+    setModalOpen(true);
   };
 
-  // Lưu dữ liệu
+  const handleDelete = (id) => {
+    if (window.confirm("Xóa vị trí này?")) {
+      setLocations(locations.filter((l) => l.id !== id));
+    }
+  };
+
   const handleSave = () => {
     if (!currentLocation.name.trim()) {
       alert("Vui lòng nhập tên vị trí!");
@@ -39,186 +47,154 @@ const Location = () => {
     }
 
     if (modalType === "add") {
-      const newLoc = {
-        id: locations.length + 1,
-        name: currentLocation.name,
-        description: currentLocation.description,
-        capacity: currentLocation.capacity,
-      };
-      setLocations([...locations, newLoc]);
+      setLocations([
+        ...locations,
+        {
+          id: locations.length + 1,
+          name: currentLocation.name,
+          description: currentLocation.description,
+          capacity: currentLocation.capacity,
+        },
+      ]);
     } else {
-      const updated = locations.map((l) =>
-        l.id === currentLocation.id ? currentLocation : l
+      setLocations(
+        locations.map((l) =>
+          l.id === currentLocation.id ? currentLocation : l
+        )
       );
-      setLocations(updated);
     }
 
-    document.getElementById("closeLocationModalBtn").click();
-  };
-
-  // Xóa vị trí
-  const handleDelete = (id) => {
-    if (window.confirm("Bạn có chắc muốn xóa vị trí này?")) {
-      setLocations(locations.filter((l) => l.id !== id));
-    }
+    setModalOpen(false);
   };
 
   return (
-    <div className="content-area">
+    <div className="location-page">
 
       {/* HEADER */}
-      <div className="page-header-custom">
-        <h2 className="fw-bold m-0">
-          <i className="bi bi-geo-alt-fill me-2"></i>
-          Quản lý vị trí lưu sách
-        </h2>
+      <div className="location-header">
+        <h2>📍 Quản lý vị trí lưu sách</h2>
 
-        <button
-          className="btn btn-primary btn-add shadow-sm"
-          data-bs-toggle="modal"
-          data-bs-target="#locationModal"
-          onClick={handleAdd}
-        >
-          <i className="bi bi-plus-circle me-2"></i>
-          Thêm vị trí
+        <button className="btn-add" onClick={handleAdd}>
+          <FiPlus /> Thêm vị trí
         </button>
       </div>
 
-      {/* TABLE */}
-      <div className="card shadow-sm border-0 mt-3 category-card">
-        <div className="card-body">
+      {/* CARD TABLE */}
+      <div className="location-card">
+        <table className="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th style={{ width: 60 }}>ID</th>
+              <th>Tên vị trí</th>
+              <th>Mô tả</th>
+              <th>Sức chứa</th>
+              <th style={{ width: 140 }} className="text-center">
+                Hành động
+              </th>
+            </tr>
+          </thead>
 
-          <table className="table table-hover align-middle mb-0">
-            <thead className="table-light">
+          <tbody>
+            {locations.length === 0 ? (
               <tr>
-                <th style={{ width: "60px" }}>ID</th>
-                <th>Tên vị trí</th>
-                <th>Mô tả</th>
-                <th>Sức chứa</th>
-                <th style={{ width: "160px" }} className="text-center">Hành động</th>
+                <td colSpan="5" className="text-center text-muted py-4">
+                  Chưa có dữ liệu
+                </td>
               </tr>
-            </thead>
+            ) : (
+              locations.map((loc) => (
+                <tr key={loc.id}>
+                  <td className="fw-bold">{loc.id}</td>
+                  <td>{loc.name}</td>
+                  <td>{loc.description}</td>
+                  <td>{loc.capacity}</td>
+                  <td className="text-center">
+                    <button
+                      className="action-btn edit"
+                      onClick={() => handleEdit(loc)}
+                    >
+                      <FiEdit2 />
+                    </button>
 
-            <tbody>
-              {locations.length === 0 ? (
-                <tr>
-                  <td colSpan="5" className="text-center py-4 text-secondary">
-                    Chưa có dữ liệu
+                    <button
+                      className="action-btn delete"
+                      onClick={() => handleDelete(loc.id)}
+                    >
+                      <FiTrash2 />
+                    </button>
                   </td>
                 </tr>
-              ) : (
-                locations.map((loc) => (
-                  <tr key={loc.id}>
-                    <td className="fw-bold">{loc.id}</td>
-                    <td>{loc.name}</td>
-                    <td>{loc.description}</td>
-                    <td>{loc.capacity}</td>
-                    <td className="text-center">
-
-                      <button
-                        className="btn btn-warning btn-sm me-2"
-                        data-bs-toggle="modal"
-                        data-bs-target="#locationModal"
-                        onClick={() => handleEdit(loc)}
-                      >
-                        <i className="bi bi-pencil-square"></i>
-                      </button>
-
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => handleDelete(loc.id)}
-                      >
-                        <i className="bi bi-trash3"></i>
-                      </button>
-
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-
-          </table>
-
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
 
-      {/* ================= MODAL ================= */}
-      <div className="modal fade" id="locationModal" tabIndex="-1">
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content shadow">
-
-            <div className="modal-header bg-primary text-white">
-              <h5 className="modal-title">
-                {modalType === "add" ? "Thêm vị trí mới" : "Sửa thông tin vị trí"}
+      {/* MODAL */}
+      {modalOpen && (
+        <div className="custom-modal-overlay">
+          <div className="custom-modal">
+            <div className="custom-modal-header">
+              <h5>
+                {modalType === "add"
+                  ? "Thêm vị trí mới"
+                  : "Chỉnh sửa vị trí"}
               </h5>
-
-              <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+              <button onClick={() => setModalOpen(false)}>✕</button>
             </div>
 
-            <div className="modal-body">
+            <div className="custom-modal-body">
+              <label>Tên vị trí</label>
+              <input
+                type="text"
+                value={currentLocation.name}
+                onChange={(e) =>
+                  setCurrentLocation({
+                    ...currentLocation,
+                    name: e.target.value,
+                  })
+                }
+              />
 
-              <div className="mb-3">
-                <label className="form-label fw-semibold">Tên vị trí</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={currentLocation.name}
-                  onChange={(e) =>
-                    setCurrentLocation({ ...currentLocation, name: e.target.value })
-                  }
-                />
-              </div>
+              <label>Mô tả</label>
+              <textarea
+                rows="3"
+                value={currentLocation.description}
+                onChange={(e) =>
+                  setCurrentLocation({
+                    ...currentLocation,
+                    description: e.target.value,
+                  })
+                }
+              ></textarea>
 
-              <div className="mb-3">
-                <label className="form-label fw-semibold">Mô tả</label>
-                <textarea
-                  className="form-control"
-                  rows="3"
-                  value={currentLocation.description}
-                  onChange={(e) =>
-                    setCurrentLocation({
-                      ...currentLocation,
-                      description: e.target.value,
-                    })
-                  }
-                ></textarea>
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label fw-semibold">Sức chứa</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  value={currentLocation.capacity}
-                  onChange={(e) =>
-                    setCurrentLocation({
-                      ...currentLocation,
-                      capacity: e.target.value,
-                    })
-                  }
-                />
-              </div>
-
+              <label>Sức chứa</label>
+              <input
+                type="number"
+                value={currentLocation.capacity}
+                onChange={(e) =>
+                  setCurrentLocation({
+                    ...currentLocation,
+                    capacity: e.target.value,
+                  })
+                }
+              />
             </div>
 
-            <div className="modal-footer">
+            <div className="custom-modal-footer">
               <button
-                id="closeLocationModalBtn"
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
+                className="btn-cancel"
+                onClick={() => setModalOpen(false)}
               >
                 Hủy
               </button>
-
-              <button type="button" className="btn btn-primary" onClick={handleSave}>
-                Lưu thay đổi
+              <button className="btn-save" onClick={handleSave}>
+                Lưu
               </button>
             </div>
-
           </div>
         </div>
-      </div>
+      )}
 
     </div>
   );

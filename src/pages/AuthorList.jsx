@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/book.css";
 import AuthorModal from "./AuthorModal";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 
 export default function AuthorList() {
   const [openModal, setOpenModal] = useState(false);
@@ -28,6 +29,22 @@ export default function AuthorList() {
       id: 3,
       name: "Stephen Hawking",
       country: "Anh",
+      bio: "Nhà vật lý lý thuyết nổi tiếng, tác giả nhiều cuốn sách vũ trụ học.",
+      style: "Khoa học, vũ trụ, triết học",
+      famousWorks: "Lược Sử Thời Gian, Vũ Trụ Trong Vỏ Hạt Dẻ"
+    },
+     {
+      id: 4,
+      name: "Đoàn Giỏi",
+      country: "Việt Nam",
+      bio: "Nhà vật lý lý thuyết nổi tiếng, tác giả nhiều cuốn sách vũ trụ học.",
+      style: "Khoa học, vũ trụ, triết học",
+      famousWorks: "Lược Sử Thời Gian, Vũ Trụ Trong Vỏ Hạt Dẻ"
+    },
+     {
+      id: 5,
+      name: "Trung Nguyễn",
+      country: "Canada",
       bio: "Nhà vật lý lý thuyết nổi tiếng, tác giả nhiều cuốn sách vũ trụ học.",
       style: "Khoa học, vũ trụ, triết học",
       famousWorks: "Lược Sử Thời Gian, Vũ Trụ Trong Vỏ Hạt Dẻ"
@@ -79,20 +96,26 @@ export default function AuthorList() {
 
                 <td className="desc">{a.famousWorks}</td>
 
-                <td>
-                  <button
-                    className="btn yellow small"
-                    onClick={() => {
-                      setEditAuthor(a);
-                      setOpenModal(true);
-                    }}
-                  >
-                    ✏️
-                  </button>
+                <td className="button-col">
+                  <div className="action-row">
+                    <button
+                      className="btn yellow small action-btn"
+                      onClick={() => {
+                        setEditAuthor(a);
+                        setOpenModal(true);
+                      }}
+                      title="Chỉnh sửa"
+                    >
+                      <FiEdit2 />
+                    </button>
 
-                  <button className="btn red small" style={{ marginLeft: 6 }}>
-                    🗑️
-                  </button>
+                    <button
+                      className="btn red small action-btn"
+                      title="Xóa"
+                    >
+                      <FiTrash2 />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

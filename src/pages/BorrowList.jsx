@@ -29,6 +29,27 @@ export default function BorrowList() {
             items: [{ bookId: 4, quantity: 1, returnDate: "2024-11-30" }],
             status: "confirmed",
         },
+        {
+            id: 3,
+            reader: { name: "Lê Thị C", email: "c@gmail.com" },
+            items: [{ bookId: 2, quantity: 1, returnDate: "2024-12-20" }],
+            status: "borrowing",
+        },
+        {
+            id: 4,
+            reader: { name: "Phạm Văn D", email: "d@gmail.com" },
+            items: [
+                { bookId: 5, quantity: 1, returnDate: "2024-12-01" },
+                { bookId: 2, quantity: 2, returnDate: "2024-12-01" },
+            ],
+            status: "pending",
+        },
+        {
+            id: 5,
+            reader: { name: "Hoàng Thị E", email: "e@gmail.com" },
+            items: [{ bookId: 3, quantity: 1, returnDate: "2024-11-25" }],
+            status: "returned",
+        },
     ]);
 
     const [showModal, setShowModal] = useState(false);
@@ -137,20 +158,22 @@ export default function BorrowList() {
                                 <td className="total-col">{calcTotal(s.items).toLocaleString()}đ</td>
 
                                 <td className="action-col">
-                                    <button className="btn-yellow" onClick={() => openEdit(s)}>
-                                        Sửa
-                                    </button>
-                                    <button
-                                        className="btn btn-outline-info btn-sm me-2"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#renewModal"
-                                        onClick={() => setRenewBorrow(s)}
-                                    >
-                                        Gia hạn
-                                    </button>
-                                    <button className="btn-red" onClick={() => deleteSlip(s.id)}>
-                                        Xóa
-                                    </button>
+                                    <div className="action-row">
+                                      <button className="btn-yellow" onClick={() => openEdit(s)}>
+                                          Sửa
+                                      </button>
+
+                                      <button
+                                          className="btn btn-outline-info btn-sm me-2"
+                                          onClick={() => setRenewBorrow(s)}
+                                      >
+                                          Gia hạn
+                                      </button>
+
+                                      <button className="btn-red" onClick={() => deleteSlip(s.id)}>
+                                          Xóa
+                                      </button>
+                                    </div>
                                 </td>
                             </tr>
                         ))}
@@ -180,6 +203,7 @@ export default function BorrowList() {
                     );
                     setRenewBorrow(null);
                 }}
+                onClose={() => setRenewBorrow(null)}
             />
 
         </div>

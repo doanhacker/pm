@@ -1,16 +1,19 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "../styles/Category.css"; // file CSS mở rộng
+import "../styles/Category.css";
+import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
 
 const Category = () => {
-  // Dữ liệu mẫu
   const [categories, setCategories] = useState([
     { id: 1, name: "Tiểu thuyết", description: "Sách văn học, truyện dài" },
     { id: 2, name: "Khoa học", description: "Kiến thức khoa học" },
     { id: 3, name: "Lịch sử", description: "Các sự kiện lịch sử" },
+    { id: 4, name: "Lập trình nâng cao", description: "Hướng tới các thuật toán lập trình nâng cao" },
+    { id: 5, name: "Quản lý dự án phần mềm", description: "Chuyên hướng dẫn về các phương án dành cho quản lý phần mềm" },
+    { id: 6, name: "Văn học", description: "Nghị luận các bài văn học" },
   ]);
 
+  const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState("add");
   const [currentCategory, setCurrentCategory] = useState({
     id: "",
@@ -18,19 +21,24 @@ const Category = () => {
     description: "",
   });
 
-  // Mở modal thêm
   const handleAdd = () => {
     setModalType("add");
     setCurrentCategory({ id: "", name: "", description: "" });
+    setModalOpen(true);
   };
 
-  // Mở modal sửa
   const handleEdit = (cat) => {
     setModalType("edit");
     setCurrentCategory(cat);
+    setModalOpen(true);
   };
 
-  // Lưu dữ liệu
+  const handleDelete = (id) => {
+    if (window.confirm("Xóa thể loại này?")) {
+      setCategories(categories.filter((c) => c.id !== id));
+    }
+  };
+
   const handleSave = () => {
     if (!currentCategory.name.trim()) {
       alert("Vui lòng nhập tên thể loại!");
@@ -38,177 +46,141 @@ const Category = () => {
     }
 
     if (modalType === "add") {
-      const newCategory = {
-        id: categories.length + 1,
-        name: currentCategory.name,
-        description: currentCategory.description,
-      };
-      setCategories([...categories, newCategory]);
+      setCategories([
+        ...categories,
+        {
+          id: categories.length + 1,
+          name: currentCategory.name,
+          description: currentCategory.description,
+        },
+      ]);
     } else {
-      const updated = categories.map((cat) =>
-        cat.id === currentCategory.id ? currentCategory : cat
+      setCategories(
+        categories.map((c) =>
+          c.id === currentCategory.id ? currentCategory : c
+        )
       );
-      setCategories(updated);
     }
 
-    document.getElementById("closeModalBtn").click();
-  };
-
-  // Xóa
-  const handleDelete = (id) => {
-    if (window.confirm("Bạn có chắc muốn xóa thể loại này?")) {
-      setCategories(categories.filter((c) => c.id !== id));
-    }
+    setModalOpen(false);
   };
 
   return (
-    <div className="content-area">
+    <div className="category-page">
 
       {/* HEADER */}
-      <div className="page-header-custom">
-        <h2 className="fw-bold m-0">
-          <i className="bi bi-tags-fill me-2"></i>
-          Quản lý thể loại sách
+      <div className="category-header">
+        <h2>
+          📚 Quản lý thể loại sách
         </h2>
 
-        <button
-          className="btn btn-primary btn-add shadow-sm"
-          data-bs-toggle="modal"
-          data-bs-target="#categoryModal"
-          onClick={handleAdd}
-        >
-          <i className="bi bi-plus-circle me-2"></i>
-          Thêm thể loại
+        <button className="btn-add" onClick={handleAdd}>
+          <FiPlus /> Thêm thể loại
         </button>
       </div>
 
       {/* CARD TABLE */}
-      <div className="card shadow-sm border-0 mt-3 category-card">
-        <div className="card-body">
+      <div className="category-card">
+        <table className="table table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th style={{ width: 60 }}>ID</th>
+              <th>Tên thể loại</th>
+              <th>Mô tả</th>
+              <th style={{ width: 140 }} className="text-center">
+                Hành động
+              </th>
+            </tr>
+          </thead>
 
-          <table className="table table-hover align-middle mb-0">
-            <thead className="table-light">
+          <tbody>
+            {categories.length === 0 ? (
               <tr>
-                <th style={{ width: "60px" }}>ID</th>
-                <th>Tên thể loại</th>
-                <th>Mô tả</th>
-                <th style={{ width: "160px" }} className="text-center">
-                  Hành động
-                </th>
+                <td colSpan="4" className="text-center text-muted py-4">
+                  Chưa có dữ liệu
+                </td>
               </tr>
-            </thead>
+            ) : (
+              categories.map((cat) => (
+                <tr key={cat.id}>
+                  <td className="fw-bold">{cat.id}</td>
+                  <td>{cat.name}</td>
+                  <td>{cat.description}</td>
+                  <td className="text-center">
+                    <button
+                      className="action-btn edit"
+                      onClick={() => handleEdit(cat)}
+                    >
+                      <FiEdit2 />
+                    </button>
 
-            <tbody>
-              {categories.length === 0 ? (
-                <tr>
-                  <td colSpan="4" className="text-center py-4 text-secondary">
-                    Chưa có dữ liệu
+                    <button
+                      className="action-btn delete"
+                      onClick={() => handleDelete(cat.id)}
+                    >
+                      <FiTrash2 />
+                    </button>
                   </td>
                 </tr>
-              ) : (
-                categories.map((cat) => (
-                  <tr key={cat.id}>
-                    <td className="fw-bold">{cat.id}</td>
-                    <td>{cat.name}</td>
-                    <td>{cat.description}</td>
-                    <td className="text-center">
-
-                      <button
-                        className="btn btn-warning btn-sm me-2"
-                        data-bs-toggle="modal"
-                        data-bs-target="#categoryModal"
-                        onClick={() => handleEdit(cat)}
-                      >
-                        <i className="bi bi-pencil-square"></i>
-                      </button>
-
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => handleDelete(cat.id)}
-                      >
-                        <i className="bi bi-trash3"></i>
-                      </button>
-
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-
-        </div>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
 
-      {/* ================= MODAL ================= */}
-      <div className="modal fade" id="categoryModal" tabIndex="-1">
-        <div className="modal-dialog modal-lg">
-          <div className="modal-content shadow">
-
-            <div className="modal-header bg-primary text-white">
-              <h5 className="modal-title">
-                {modalType === "add" ? "Thêm thể loại mới" : "Sửa thể loại"}
+      {/* MODAL */}
+      {modalOpen && (
+        <div className="custom-modal-overlay">
+          <div className="custom-modal">
+            <div className="custom-modal-header">
+              <h5>
+                {modalType === "add"
+                  ? "Thêm thể loại mới"
+                  : "Chỉnh sửa thể loại"}
               </h5>
-
-              <button
-                type="button"
-                className="btn-close btn-close-white"
-                data-bs-dismiss="modal"
-              ></button>
+              <button onClick={() => setModalOpen(false)}>✕</button>
             </div>
 
-            <div className="modal-body">
+            <div className="custom-modal-body">
+              <label>Tên thể loại</label>
+              <input
+                type="text"
+                value={currentCategory.name}
+                onChange={(e) =>
+                  setCurrentCategory({
+                    ...currentCategory,
+                    name: e.target.value,
+                  })
+                }
+              />
 
-              <div className="mb-3">
-                <label className="form-label fw-semibold">Tên thể loại</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={currentCategory.name}
-                  onChange={(e) =>
-                    setCurrentCategory({ ...currentCategory, name: e.target.value })
-                  }
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label fw-semibold">Mô tả</label>
-                <textarea
-                  className="form-control"
-                  rows="4"
-                  value={currentCategory.description}
-                  onChange={(e) =>
-                    setCurrentCategory({
-                      ...currentCategory,
-                      description: e.target.value,
-                    })
-                  }
-                ></textarea>
-              </div>
-
+              <label>Mô tả</label>
+              <textarea
+                rows="4"
+                value={currentCategory.description}
+                onChange={(e) =>
+                  setCurrentCategory({
+                    ...currentCategory,
+                    description: e.target.value,
+                  })
+                }
+              ></textarea>
             </div>
 
-            <div className="modal-footer">
+            <div className="custom-modal-footer">
               <button
-                id="closeModalBtn"
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
+                className="btn-cancel"
+                onClick={() => setModalOpen(false)}
               >
                 Hủy
               </button>
-
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={handleSave}
-              >
-                Lưu thay đổi
+              <button className="btn-save" onClick={handleSave}>
+                Lưu
               </button>
             </div>
-
           </div>
         </div>
-      </div>
+      )}
 
     </div>
   );

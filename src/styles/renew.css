@@ -6,6 +6,22 @@
   box-shadow: 0 4px 18px rgba(0,0,0,0.15);
 }
 
+/* overlay + modal wrapper for React-controlled modal */
+.renew-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.35);
+  z-index: 1050;
+}
+
+.renew-modal {
+  width: 720px;
+  max-width: 94%;
+}
+
 /* ====== HEADER ====== */
 .renew-header {
   background: #007bff;
